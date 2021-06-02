@@ -90,7 +90,7 @@
 			"composer check-cs"
 		],
 		"check-cs-warnings": [
-			"@php ./vendor/squizlabs/php_codesniffer/bin/phpcs"
+			"@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --standard=phpcs.xml.dist"
 		],
 		"check-staged-cs": [
 			"@check-cs-warnings --filter=GitStaged"
