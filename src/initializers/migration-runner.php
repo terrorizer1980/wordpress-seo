@@ -155,7 +155,7 @@ class Migration_Runner implements Initializer_Interface {
 		/**
 		 * The migration to run.
 		 *
-		 * @var Migration
+		 * @var Migration $migration
 		 */
 		$migration = new $class( $this->adapter );
 		try {

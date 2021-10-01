@@ -15,9 +15,8 @@ use Yoast_Notification_Center;
 use YoastSEO_Vendor\Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Holds the dependency injection container.
- *
- * @var $container \Symfony\Component\DependencyInjection\ContainerBuilder
+ * @uses \Symfony\Component\DependencyInjection\ContainerBuilder $container Holds the dependency injection container.
+ * @uses \Yoast\WP\SEO\Dependency_Injection\Custom_Loader        $loader    Holds the dependency injection loader.
  *
  * @phpcs:disable PEAR.Files.IncludingFile.UseRequire
  */
@@ -69,9 +68,4 @@ $yoast_seo_base_definition
 	->setAutoconfigured( true )
 	->setPublic( true );
 
-/**
- * Holds the dependency injection loader.
- *
- * @var $loader \Yoast\WP\SEO\Dependency_Injection\Custom_Loader
- */
 $loader->registerClasses( $yoast_seo_base_definition, 'Yoast\\WP\\SEO\\', 'src/*', 'src/{' . $yoast_seo_excluded . '}' );

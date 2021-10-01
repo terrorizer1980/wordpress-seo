@@ -12,12 +12,8 @@
  * @phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
  * @phpcs:disable Squiz.Commenting.FunctionComment.Missing
  * @phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
- */
-
-/**
- * Holds the dependency injection container.
  *
- * @var $container \Symfony\Component\DependencyInjection\ContainerBuilder
+ * @uses \Symfony\Component\DependencyInjection\ContainerBuilder $container Holds the dependency injection container.
  */
 
 use Yoast\WP\SEO\Integrations\Third_Party\Elementor_Exclude_Post_Types;
