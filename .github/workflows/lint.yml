@@ -46,10 +46,18 @@ jobs:
           coverage: none
           tools: cs2pr
 
+      # Remove packages which aren't needed for the linting and are not PHP cross-version compatible.
+      - name: Adjust Composer dependencies
+        run: composer remove --dev --no-update --no-scripts humbug/php-scoper atanamo/php-codeshift phpunit/phpunit
+
       # Install dependencies and handle caching in one go.
       # @link https://github.com/marketplace/actions/install-composer-dependencies
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v1
+        with:
+          dependency-versions: "highest" # Install highest versions compatible with current PHP version. Forces a composer update.
+          composer-options: "--no-scripts"
+
 
       - name: Lint against parse errors
         run: composer lint -- --checkstyle | cs2pr
