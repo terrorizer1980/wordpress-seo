@@ -44,20 +44,9 @@ jobs:
           php-version: ${{ matrix.php_version }}
           ini-values: zend.assertions=1, error_reporting=-1, display_errors=On
           coverage: none
-          tools: cs2pr
+          tools: cs2pr, parallel-lint
 
-      # Remove packages which aren't needed for the linting and are not PHP cross-version compatible.
-      - name: Adjust Composer dependencies
-        run: composer remove --dev --no-update --no-scripts humbug/php-scoper atanamo/php-codeshift phpunit/phpunit
-
-      # Install dependencies and handle caching in one go.
-      # @link https://github.com/marketplace/actions/install-composer-dependencies
-      - name: Install Composer dependencies
-        uses: ramsey/composer-install@v1
-        with:
-          dependency-versions: "highest" # Install highest versions compatible with current PHP version. Forces a composer update.
-          composer-options: "--no-scripts"
-
-
+      # The command parameters used in the below command should be kept in sync with the command
+      # in the `composer lint` script, with the exception of the `--checkstyle` addition.
       - name: Lint against parse errors
-        run: composer lint -- --checkstyle | cs2pr
+        run: parallel-lint . -e php --exclude vendor --exclude vendor_prefixed --exclude node_modules --exclude .git --checkstyle | cs2pr
