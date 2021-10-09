@@ -25,7 +25,7 @@ jobs:
   fast_finish: true
   include:
     - php: 7.2
-      env: PHPCS=1 CHECKJS=1 SECURITY=1 TRAVIS_NODE_VERSION=lts/*
+      env: PHPCS=1 CHECKJS=1 TRAVIS_NODE_VERSION=lts/*
     - php: 7.4
       name: "PHP 7.4: Check CS"
       before_install: skip
@@ -119,7 +119,6 @@ cache:
     - node_modules
 
 before_install:
-  - export SECURITYCHECK_DIR=/tmp/security-checker
   - if [[ -z "$CC_TEST_REPORTER_ID" ]]; then COVERAGE="0"; fi
   - if [[ "$COVERAGE" != "1" ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
   - |
@@ -169,7 +168,6 @@ install:
       yarn global add grunt-cli
       yarn install
     fi
-  - if [[ "$SECURITY" == "1" ]]; then wget -P $SECURITYCHECK_DIR https://github.com/fabpot/local-php-security-checker/releases/download/v1.2.0/local-php-security-checker_1.2.0_linux_amd64 && chmod +x $SECURITYCHECK_DIR/local-php-security-checker_1.2.0_linux_amd64;fi
 
 before_script:
   # Careful: The HTTPS version of the following URL is different, therefore we need to use HTTP.
@@ -292,9 +290,6 @@ script:
   # Validate the composer.json file.
   # @link https://getcomposer.org/doc/03-cli.md#validate
   - if [[ $TRAVIS_PHP_VERSION == "5.6" || $TRAVIS_PHP_VERSION == "7.4" ]]; then composer validate --no-check-all; fi
-
-  # Check for known security vulnerabilities in the currently locked-in dependencies.
-  - if [[ "$SECURITY" == "1" ]]; then $SECURITYCHECK_DIR/local-php-security-checker_1.2.0_linux_amd64 --path=$(pwd)/composer.lock;fi
 
 after_script:
   - |
