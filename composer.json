@@ -66,7 +66,7 @@
 			"@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude vendor_prefixed --exclude node_modules --exclude .git"
 		],
 		"lint-files": [
-			"@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint"
+			"@lint"
 		],
 		"lint-branch": [
 			"Yoast\\WP\\SEO\\Composer\\Actions::lint_branch"
